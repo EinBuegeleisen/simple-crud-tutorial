@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <p>home works!</p>
+
+
+            <ul>
+                <li *ngFor="let book of books">{{book}}</li>
+            </ul>
+        </div>
+
+        <div class="col-6">
+            <input class="form-control" placeholder="Neuen Buch äastellen" [(ngModel)]="newBookTitle">
+
+            <button class="mx-auto d-block btn btn-outline-success" [disabled]="newBookTitle.length > maxTitleLength"
+                (click)="onBtnClick()">Klick
+                mich!</button>
+
+
+            <div [class]="'alert alert-' + (newBookTitle.length <= maxTitleLength ? 'primary' : 'warning')"
+                *ngIf="newBookTitle != ''">
+                Wenn Sie auf den Button clicken, wird ein neues Buch namens <i>{{newBookTitle}}</i> erstellt.
+                <span *ngIf="newBookTitle.length > maxTitleLength"><br>Name ist um
+                    {{newBookTitle.length - maxTitleLength}} Zeichen
+                    {{ newBookTitle.length >= maxTitleLength * 2 ? 'VIEL' : '' }} lang</span>
+            </div>
+        </div>
+    </div>
+</div>
