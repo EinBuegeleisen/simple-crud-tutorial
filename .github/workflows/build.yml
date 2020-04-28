@@ -1,0 +1,19 @@
+name: Build
+
+on: [push]
+
+jobs:
+  build:
+    name: Build out Angular Project
+    runs-on: windows-latest
+    steps:
+    - name: Clone the code
+      uses: actions/checkout@v1
+    - name: setup NodeJS
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12
+    - name: Install dependencies
+      run: npm install
+    - name: Build the App
+      run: ng build
