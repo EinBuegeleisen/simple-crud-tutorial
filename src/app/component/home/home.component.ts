@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
+import { Book } from 'src/app/classes/book';
 
 @Component({
   selector: 'app-home',
@@ -11,8 +12,9 @@ export class HomeComponent implements OnInit {
   public title: string = "Ein LangweiligesBuchMitExtremLangemUndEinschläferndemTitel";
   public showAlert: boolean = true;
   public newBookTitle: string = "";
+  public newBookAuthor: string = "";
   public readonly maxTitleLength: number = 20;
-  public books: string[] = [];
+  public books: Book[] = [];
 
   constructor(private storageService: StorageService) { }
 
@@ -21,11 +23,13 @@ export class HomeComponent implements OnInit {
   }
 
   public onBtnClick() {
-    // this.showAlert = !this.showAlert;
-    // this.books.push("Buch Nr. " + Math.round(Math.random() * 100));
-    this.books.push(this.newBookTitle);
+    const book = new Book();
+    book.title = this.newBookTitle;
+    book.authors = [this.newBookAuthor];
+    this.books.push(book);
     this.storageService.setBooks(this.books);
     this.newBookTitle = "";
+    this.newBookAuthor = "";
   }
 
   public transformBookTitle(title: string): string {

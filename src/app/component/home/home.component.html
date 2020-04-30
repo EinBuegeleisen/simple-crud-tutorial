@@ -5,12 +5,13 @@
 
 
             <ul>
-                <li *ngFor="let book of books">{{book}}</li>
+            <li *ngFor="let book of books">{{book.title}}, Autoren: {{book.authors}}</li>
             </ul>
         </div>
 
         <div class="col-6">
             <input class="form-control" placeholder="Neuen Buch äastellen" [(ngModel)]="newBookTitle">
+            <input class="form-control" placeholder="Autor eingeben" [(ngModel)]="newBookAuthor">
 
             <button class="mx-auto d-block btn btn-outline-success" [disabled]="newBookTitle.length > maxTitleLength"
                 (click)="onBtnClick()">Klick
