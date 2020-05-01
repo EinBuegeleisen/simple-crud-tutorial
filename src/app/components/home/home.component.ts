@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵɵInheritDefinitionFeature } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
 import { Book } from 'src/app/classes/book';
 
@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   public newBookAuthor: string = "";
   public readonly maxTitleLength: number = 20;
   public books: Book[] = [];
+  public isEditing: number = undefined;
 
   constructor(private storageService: StorageService) { }
 
@@ -23,17 +24,49 @@ export class HomeComponent implements OnInit {
   }
 
   public onBtnClick() {
-    const book = new Book();
-    book.title = this.newBookTitle;
-    book.authors = [this.newBookAuthor];
-    this.books.push(book);
+
+    const bneu = new Book();
+    bneu.title = this.newBookTitle;
+    bneu.id = Math.round(Math.random() * 100000);
+    bneu.authors = this.newBookAuthor ? [this.newBookAuthor] : undefined;
+
+    if (this.isEditing) {
+      this.books = this.books.map((b) => {
+        if (b.id === this.isEditing) {
+          return bneu;
+        }
+        return b;
+      });
+
+    } else {
+      this.books.push(bneu);
+    }
+
+    this.isEditing = undefined;
     this.storageService.setBooks(this.books);
-    this.newBookTitle = "";
-    this.newBookAuthor = "";
+    this.newBookTitle = '';
+    this.newBookAuthor = '';
+  }
+
+  public deleteBook(book) {
+    console.log(book);
+    this.books = this.books.filter(function(b) {
+      if (b.title == book.title) {
+        return false;
+      }
+      return true;
+    });
+    this.storageService.setBooks(this.books);
   }
 
   public transformBookTitle(title: string): string {
     return "Buch: " + title;
+  }
+
+  public editBook(book: Book) {
+    this.isEditing = book.id;
+    this.newBookTitle = book.title;
+    this.newBookAuthor = book.authors.join(", ");
   }
 
 }
