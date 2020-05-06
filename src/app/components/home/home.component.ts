@@ -28,7 +28,9 @@ export class HomeComponent implements OnInit {
     const bneu = new Book();
     bneu.title = this.newBookTitle;
     bneu.id = Math.round(Math.random() * 100000);
-    bneu.authors = this.newBookAuthor ? [this.newBookAuthor] : undefined;
+    bneu.authors = this.newBookAuthor.split(", ");
+    bneu.price = 10;
+
 
     if (this.isEditing) {
       this.books = this.books.map((b) => {

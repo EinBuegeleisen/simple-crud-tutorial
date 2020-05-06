@@ -7,6 +7,8 @@
                     <tr>
                         <th>Titel</th>
                         <th>Autor(en)</th>
+                        <th>Preis</th>
+                        <th>Datum</th>
                         <th>Aktionen</th>
                     </tr>
                 </thead>
@@ -14,6 +16,8 @@
                     <tr *ngFor="let book of books">
                         <td>{{book.title}}</td>
                         <td>{{book.authors ? (book.authors.length > 1 ? "en" : "") : ""}} {{book.authors}}</td>
+                        <td>{{book.price | currency:'EUR'}}</td>
+                        <td>{{book.publishDate | date}}</td>
                         <td>
                             <button class="btn btn-outline-danger" (click)="deleteBook(book)">Löschen</button>
                             <button class="btn btn-outline-danger" (click)="editBook(book)">Bearbeiten</button>
@@ -34,10 +38,10 @@
 
             <div [class]="'alert alert-' + (newBookTitle.length <= maxTitleLength ? 'primary' : 'warning')"
                 *ngIf="newBookTitle != ''">
-                Wenn Sie auf den Button clicken, wird ein neues Buch namens <i>{{newBookTitle}}</i> erstellt.
+                Wenn Sie auf den Button klicken, wird ein neues Buch namens <i>{{newBookTitle}}</i> erstellt.
                 <span *ngIf="newBookTitle.length > maxTitleLength"><br>Name ist um
                     {{newBookTitle.length - maxTitleLength}} Zeichen
-                    {{ newBookTitle.length >= maxTitleLength * 2 ? 'VIEL' : '' }} lang</span>
+                    {{ newBookTitle.length >= maxTitleLength * 2 ? 'VIEL' : '' }} zu lang</span>
             </div>
         </div>
     </div>
