@@ -10,9 +10,9 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { registerLocaleData } from '@angular/common';
 
-/*import localeDe from '@angular/common/locales/de';
-import localeDeExtra from '@angular/common/locales/exra/de';
-registerLocaleData(localeDe, 'de-DE', localeDeExtra);*/
+import localeDe from '@angular/common/locales/de';
+import localeDeExtra from '@angular/common/locales/extra/de';
+registerLocaleData(localeDe, 'de-DE', localeDeExtra);
 
 @NgModule({
   declarations: [
@@ -27,10 +27,10 @@ registerLocaleData(localeDe, 'de-DE', localeDeExtra);*/
     AppRoutingModule,
     FormsModule
   ],
-  providers: [/*{
+  providers: [{
       provide: LOCALE_ID,
       useValue: 'de-DE'
-    }*/],
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
