@@ -9,10 +9,10 @@ import { Book } from 'src/app/classes/book';
 })
 export class HomeComponent implements OnInit {
 
-  public title: string = "Ein LangweiligesBuchMitExtremLangemUndEinschläferndemTitel";
+  public title: string = 'Ein LangweiligesBuchMitExtremLangemUndEinschläferndemTitel';
   public showAlert: boolean = true;
-  public newBookTitle: string = "";
-  public newBookAuthor: string = "";
+  public newBookTitle: string = '';
+  public newBookAuthor: string = '';
   public readonly maxTitleLength: number = 20;
   public books: Book[] = [];
   public isEditing: number = undefined;
@@ -23,13 +23,14 @@ export class HomeComponent implements OnInit {
     this.books = this.storageService.getBooks();
   }
 
-  public onBtnClick() {
+  public addNewBook() {
 
     const bneu = new Book();
     bneu.title = this.newBookTitle;
     bneu.id = Math.round(Math.random() * 100000);
-    bneu.authors = this.newBookAuthor.split(", ");
+    bneu.authors = this.newBookAuthor.split(', ');
     bneu.price = 10;
+    bneu.publishDate = new Date();
 
 
     if (this.isEditing) {
@@ -52,8 +53,8 @@ export class HomeComponent implements OnInit {
 
   public deleteBook(book) {
     console.log(book);
-    this.books = this.books.filter(function(b) {
-      if (b.title == book.title) {
+    this.books = this.books.filter((b) => {
+      if (b.title === book.title) {
         return false;
       }
       return true;
@@ -62,13 +63,13 @@ export class HomeComponent implements OnInit {
   }
 
   public transformBookTitle(title: string): string {
-    return "Buch: " + title;
+    return 'Buch: ' + title;
   }
 
   public editBook(book: Book) {
     this.isEditing = book.id;
     this.newBookTitle = book.title;
-    this.newBookAuthor = book.authors.join(", ");
+    this.newBookAuthor = book.authors.join(', ');
   }
 
 }

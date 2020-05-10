@@ -12,6 +12,7 @@ import { registerLocaleData } from '@angular/common';
 
 import localeDe from '@angular/common/locales/de';
 import localeDeExtra from '@angular/common/locales/extra/de';
+import { JoinAuthorsPipe } from './pipes/join-authors.pipe';
 registerLocaleData(localeDe, 'de-DE', localeDeExtra);
 
 @NgModule({
@@ -20,7 +21,8 @@ registerLocaleData(localeDe, 'de-DE', localeDeExtra);
     NavbarComponent,
     ListBooksComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    JoinAuthorsPipe
   ],
   imports: [
     BrowserModule,
