@@ -1,0 +1,66 @@
+<div class="card p-3">
+    <div class="row">
+        <div class="col-6">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Titel</th>
+                        <th>Author(en)</th>
+                        <th>Preis</th>
+                        <th>Veröffentlicht am</th>
+                        <th>Aktionen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let book of books">
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.authors | joinAuthors }}</td>
+                        <td>{{ book.price | currency:'EUR' }}</td>
+                        <td>{{ book.publishDate | date:'shortDate' }} {{ book.publishDate | date:'shortTime' }}</td>
+                        <td>
+                            <button class="btn btn-outline-primary" (click)="editBook(book)">Bearbeiten</button>
+                            <button class="btn btn-outline-danger" (click)="deleteBook(book)">Löschen</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-6">
+            <form [formGroup]="newBookForm">
+                <div>
+                    <input class="form-control" placeholder="Neues Buch erstellen" formControlName="title" [class.is-valid]="newBookForm.controls.title.valid" [class.is-invalid]="newBookForm.controls.title.invalid">
+
+                    <div class="valid-feedback">
+                        Passt!
+                    </div>
+                    <div *ngIf="newBookForm.controls.title.errors">
+                        <div class="invalid-feedback *ngIf=newBookForm.controls.title.errors.required">
+                            Dieses Feld muss ausgefüllt werden!
+                        </div>
+                        <div class="invalid-feedback *ngIf=newBookForm.controls.title.errors.minlength">
+                            Der Titel muss länger als 3 Zeichen sein! Füge noch {{newBookForm.controls.title.errors.minlength.requredLength - newBookForm.controls.title.errors.minlength.actualLength}} Zeichen hinzu
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <input class="form-control" placeholder="Autor eingeben" formControlName="author" [class.is-valid]="newBookForm.controls.author.valid" [class.is-invalid]="newBookForm.controls.author.invalid">
+                    <div class="valid-feedback">
+                        Passt!
+                    </div>
+                    <div class="invalid-feedback">
+                        Dieses Feld muss ausgefüllt werden!
+                    </div>
+                </div>
+
+                <button class="mx-auto d-block mt-2 btn btn-outline-success" [disabled]="newBookForm.controls.title.value.length > maxTitleLength" (click)="addNewBook()">{{isEditing ? 'Änderungen speichern' : 'Buch hinzufügen'}}</button>
+            </form>
+
+
+            
+            <div [class]="'alert alert-' + (newBookForm.controls.title.value.length <= maxTitleLength ? 'primary' : 'warning')" *ngIf="newBookForm.controls.title.value != ''">
+                <span *ngIf="newBookForm.controls.title.value.length <= maxTitleLength">Wenn Sie auf den Button klicken, wird ein neues Buch namens <i>{{ newBookForm.controls.title.value }}</i> erstellt.</span>
+                <span *ngIf="newBookForm.controls.title.value.length > maxTitleLength">Der Titel ist mit {{newBookForm.controls.title.value.length}} Zeichen {{ newBookForm.controls.title.value.length >= maxTitleLength * 2 ? 'viel ' : ''}}zu lang!</span>
+            </div>
+        </div>
+    </div>
+</div>
