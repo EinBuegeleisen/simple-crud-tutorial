@@ -6,15 +6,15 @@ export class Book {
   public id: number;
 
   @Column()
-  public titel: string;
+  public title: string;
 
   @Column()
-  public autor: string;
+  public author: string;
 
   @Column()
-  public preis: number;
+  public price: number;
 
   @Column()
   @CreateDateColumn()
-  public anlegedatum: Date;
+  public creationDate: Date;
 }
