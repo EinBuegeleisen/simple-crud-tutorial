@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, OneToMany, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Book } from "./book";
 
 @Entity()
 export class User {
@@ -13,6 +14,9 @@ export class User {
 
   @Column()
   public password: string;
+
+  @OneToMany(() => Book, (book) => book.createdBy)
+  public books: Book[];
 
   @Column()
   @CreateDateColumn()

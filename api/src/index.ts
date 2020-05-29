@@ -3,6 +3,7 @@ import routes from "./routes/index";
 import { createConnection } from "typeorm";
 import { User } from "./entities/user";
 import { Book } from "./entities/book";
+import { Author } from "./entities/author";
 import "reflect-metadata";
 import * as bodyParser from "body-parser";
 
@@ -13,7 +14,7 @@ createConnection({
     username: "root",
     password: "erdölerdöl",
     database: "simpleCrudTutorialDB",
-    entities: [User, Book],
+    entities: [User, Book, Author],
 }).then(async (connection) => {
 
     await connection.synchronize();
