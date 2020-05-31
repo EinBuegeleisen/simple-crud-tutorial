@@ -5,7 +5,7 @@ import { getRepository } from "typeorm";
 export class AuthorController {
     public static async getAuthors(req, res) {
         const authorRepository = getRepository(Author);
-        const authors = await authorRepository.find();
+        const authors = await authorRepository.find({relations:["books"]});
         res.send(authors);
     }
 
